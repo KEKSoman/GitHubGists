@@ -52,14 +52,16 @@ class CustomButton: UIView {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.addSubview(button)
         self.addSubview(label)
-        
-        
         setConstrants()
         setUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setConstrants() {
@@ -76,7 +78,6 @@ class CustomButton: UIView {
     }
     
     private func setUI() {
-        self.layer.cornerRadius = 5
         button.addTarget(self, action: #selector(vibro), for: .touchUpInside)
         self.bgColor = hexStringToUIColor(hex: "7066CC")
         self.label.textAlignment = .center

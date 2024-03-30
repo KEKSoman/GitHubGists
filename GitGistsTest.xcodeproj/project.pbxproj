@@ -15,6 +15,11 @@
 		3F2144B62BB5BF1D003A6F85 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3F2144B52BB5BF1D003A6F85 /* Alamofire */; };
 		3F2144B82BB5C4E9003A6F85 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2144B72BB5C4E9003A6F85 /* CustomButton.swift */; };
 		3F2144BA2BB5C65E003A6F85 /* HEXtoRGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2144B92BB5C65E003A6F85 /* HEXtoRGB.swift */; };
+		3F2144BC2BB810B6003A6F85 /* SetGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2144BB2BB810B6003A6F85 /* SetGradient.swift */; };
+		3F2144C02BB81937003A6F85 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2144BF2BB81937003A6F85 /* Model.swift */; };
+		3F2144C22BB81CCC003A6F85 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2144C12BB81CCC003A6F85 /* Network.swift */; };
+		3F2144C42BB83843003A6F85 /* GistListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2144C32BB83843003A6F85 /* GistListViewController.swift */; };
+		3F2144C62BB83A79003A6F85 /* GistVCTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2144C52BB83A79003A6F85 /* GistVCTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		3F2144AB2BB5BCE3003A6F85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F2144B72BB5C4E9003A6F85 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		3F2144B92BB5C65E003A6F85 /* HEXtoRGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HEXtoRGB.swift; sourceTree = "<group>"; };
+		3F2144BB2BB810B6003A6F85 /* SetGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGradient.swift; sourceTree = "<group>"; };
+		3F2144BF2BB81937003A6F85 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		3F2144C12BB81CCC003A6F85 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		3F2144C32BB83843003A6F85 /* GistListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistListViewController.swift; sourceTree = "<group>"; };
+		3F2144C52BB83A79003A6F85 /* GistVCTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistVCTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,15 +70,36 @@
 		3F21449C2BB5BCE1003A6F85 /* GitGistsTest */ = {
 			isa = PBXGroup;
 			children = (
-				3F2144B92BB5C65E003A6F85 /* HEXtoRGB.swift */,
+				3F2144BE2BB81919003A6F85 /* Network */,
+				3F2144BD2BB81904003A6F85 /* Support */,
 				3F21449D2BB5BCE1003A6F85 /* AppDelegate.swift */,
 				3F2144A12BB5BCE1003A6F85 /* StartViewController.swift */,
 				3F2144A62BB5BCE3003A6F85 /* Assets.xcassets */,
 				3F2144A82BB5BCE3003A6F85 /* LaunchScreen.storyboard */,
 				3F2144AB2BB5BCE3003A6F85 /* Info.plist */,
-				3F2144B72BB5C4E9003A6F85 /* CustomButton.swift */,
+				3F2144C32BB83843003A6F85 /* GistListViewController.swift */,
+				3F2144C52BB83A79003A6F85 /* GistVCTableCell.swift */,
 			);
 			path = GitGistsTest;
+			sourceTree = "<group>";
+		};
+		3F2144BD2BB81904003A6F85 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				3F2144B92BB5C65E003A6F85 /* HEXtoRGB.swift */,
+				3F2144B72BB5C4E9003A6F85 /* CustomButton.swift */,
+				3F2144BB2BB810B6003A6F85 /* SetGradient.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		3F2144BE2BB81919003A6F85 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				3F2144BF2BB81937003A6F85 /* Model.swift */,
+				3F2144C12BB81CCC003A6F85 /* Network.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,7 +183,12 @@
 				3F2144BA2BB5C65E003A6F85 /* HEXtoRGB.swift in Sources */,
 				3F2144A22BB5BCE1003A6F85 /* StartViewController.swift in Sources */,
 				3F21449E2BB5BCE1003A6F85 /* AppDelegate.swift in Sources */,
+				3F2144C02BB81937003A6F85 /* Model.swift in Sources */,
+				3F2144C42BB83843003A6F85 /* GistListViewController.swift in Sources */,
 				3F2144B82BB5C4E9003A6F85 /* CustomButton.swift in Sources */,
+				3F2144C22BB81CCC003A6F85 /* Network.swift in Sources */,
+				3F2144C62BB83A79003A6F85 /* GistVCTableCell.swift in Sources */,
+				3F2144BC2BB810B6003A6F85 /* SetGradient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
