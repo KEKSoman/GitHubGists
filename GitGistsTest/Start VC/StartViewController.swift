@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-
+import Lottie
 
 class StartViewController: UIViewController {
     
@@ -17,6 +17,7 @@ class StartViewController: UIViewController {
     let button = CustomButton()
     let vStack = UIStackView()
     let backView = UIView(frame: .zero)
+    var loaderView: LottieAnimationView?
     
     let network = Network()
     
@@ -26,6 +27,7 @@ class StartViewController: UIViewController {
         backView.addSubview(vStack)
         addingLayers()
         setUI()
+        navigationItem.title = "Start VC"
     }
     
     override func viewWillLayoutSubviews() {
@@ -88,17 +90,32 @@ class StartViewController: UIViewController {
         button.font = .systemFont(ofSize: 36)
         button.button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         
+        loaderView = .init(name: "loader")
+        loaderView?.frame = view.bounds
+        loaderView?.contentMode = .scaleAspectFit
+        loaderView?.loopMode = .loop
+        loaderView?.isHidden = true
+        view.addSubview(loaderView!)
+        
     }
     
     @objc private func tapButton() {
+        loaderView?.isHidden = false
+        loaderView?.play()
         Network.shared.loadGists(username: usernameField.text ?? "") { completion in
             
             guard let gists = Network.shared.gists else { return }
             if completion {
+                self.loaderView?.stop()
+                self.loaderView?.isHidden = true
                 DispatchQueue.main.async {
-                    self.present(GistListViewController(gists: gists), animated: true)
-                } 
+                    let gistsListVC = GistListViewController(gists: gists)
+                    self.navigationController?.pushViewController(gistsListVC, animated: true)
+                    
+                }
             } else {
+                self.loaderView?.stop()
+                self.loaderView?.isHidden = true
                 print("Sorry response is nil")
             }
             

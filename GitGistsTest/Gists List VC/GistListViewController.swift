@@ -18,7 +18,7 @@ class GistListViewController: UIViewController {
     let backView = UIView()
     var gists: [Gists]?
     
-    init(gists: [Gists]) {
+    init(gists: [Gists]?) {
         self.gists = gists
         super.init(nibName: nil, bundle: nil)
     }
@@ -105,14 +105,28 @@ extension GistListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        print("== GISTS: \(gists) ===")
         guard let cell = cell as? GistViewControllerTableCell else { return }
         guard let gist = gists?[indexPath.row] else { return }
         cell.gistTitle.text = gist.description
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let gists = gists?[indexPath.row] else { return }
+        let gistDetailVC = GistDetailViewController()
+        
+        GistDetailNetwork.shared.getGistDetailInformation(gistUrl: gists.url) { completion in
+            if completion {
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(gistDetailVC, animated: true)
+                }
+            } else {
+                print("Cant open gist detail")
+            }
+        }
         
         
         
-        //TEst
+                
     }
     
     
