@@ -22,7 +22,6 @@ class Network {
             
             let response = try? JSONDecoder().decode([Gists].self, from: data)
             self.gists = response
-            
             if response != nil {
                 completion(true)
             } else {

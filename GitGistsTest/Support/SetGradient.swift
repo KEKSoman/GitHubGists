@@ -20,4 +20,24 @@ extension UIView {
         self.layer.insertSublayer(gradient, at: 0)
         
     }
+    
+    func addBorderGradient(color1: String, color2: String){
+        self.layer.sublayers?.filter{ $0 is CAGradientLayer }.forEach{ $0.removeFromSuperlayer() }
+        let borderGradient = CAGradientLayer()
+        layoutIfNeeded()
+//        borderGradient.cornerRadius = 10
+        borderGradient.frame = CGRect(origin: .zero, size: self.frame.size)
+        borderGradient.colors = [hexStringToUIColor(hex: color1).cgColor,
+                                 hexStringToUIColor(hex: color2).cgColor]
+        borderGradient.startPoint = CGPoint(x: 0, y: 0.5)
+        borderGradient.endPoint = CGPoint(x: 1, y: 0.5)
+        let shape = CAShapeLayer()
+        shape.lineWidth = 4
+        shape.path = UIBezierPath(rect: self.bounds).cgPath
+        shape.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: 0).cgPath
+        shape.strokeColor = UIColor.red.cgColor
+        shape.fillColor = UIColor.clear.cgColor
+        borderGradient.mask = shape
+        self.layer.addSublayer(borderGradient)
+    }
 }

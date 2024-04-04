@@ -18,16 +18,20 @@ class StartViewController: UIViewController {
     let vStack = UIStackView()
     let backView = UIView(frame: .zero)
     var loaderView: LottieAnimationView?
+    let alertView = CustomAlert()
     
     let network = Network()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         view.addSubview(backView)
         backView.addSubview(vStack)
+        
         addingLayers()
         setUI()
         navigationItem.title = "Start VC"
+        view.addSubview(alertView)
     }
     
     override func viewWillLayoutSubviews() {
@@ -35,7 +39,8 @@ class StartViewController: UIViewController {
         [usernameField, passwordField, button].forEach { item in
             item.layer.cornerRadius = 20
         }
-        
+        alertView.backView.addBorderGradient(color1: "25CED1", color2: "41A6FF")
+        alertView.button.addBorderGradient(color1: "25CED1", color2: "41A6FF")
     }
     
     
@@ -55,6 +60,8 @@ class StartViewController: UIViewController {
             item.translatesAutoresizingMaskIntoConstraints = false
             vStack.addArrangedSubview(item)
         }
+        
+        
         
     }
     
@@ -78,9 +85,9 @@ class StartViewController: UIViewController {
         usernameField.alpha = 0.7
         // usernameField.placeholder = "Enter GitHub Username"
         usernameField.textAlignment = .center
-        usernameField.text = "KEKSoman"
+        usernameField.text = "Jrterhgwefwdasgdshfjg"
         
-        passwordField.backgroundColor = .black
+        passwordField.backgroundColor = .clear
         passwordField.placeholder = "Function unaviable"
         passwordField.isEnabled = false
         
@@ -90,40 +97,65 @@ class StartViewController: UIViewController {
         button.font = .systemFont(ofSize: 36)
         button.button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         
+        
         loaderView = .init(name: "loader")
-        loaderView?.frame = view.bounds
         loaderView?.contentMode = .scaleAspectFit
         loaderView?.loopMode = .loop
         loaderView?.isHidden = true
         view.addSubview(loaderView!)
+        loaderView?.snp.makeConstraints { make in
+            make.height.width.equalTo(150)
+            make.centerY.equalTo(view.snp.centerY)
+            make.centerX.equalTo(view.snp.centerX)
+        }
+        
+        alertView.frame = view.frame
+        alertView.isHidden = true
+    }
+    
+    func startLoader() {
+        UIView.animate(withDuration: 0.3) {
+            self.loaderView?.isHidden = false
+            self.loaderView?.play()
+        }
+    }
+    
+    func stopLoader() {
+        UIView.animate(withDuration: 0.3) {
+            self.loaderView?.stop()
+            self.loaderView?.isHidden = true
+        }
         
     }
     
+    func showAlert(with text: String) {
+        UIView.animate(withDuration: 0.3) {
+            self.alertView.isHidden = false
+            self.alertView.label.text = text
+        }
+    }
+    
     @objc private func tapButton() {
-        loaderView?.isHidden = false
-        loaderView?.play()
+        startLoader()
         Network.shared.loadGists(username: usernameField.text ?? "") { completion in
             
-            guard let gists = Network.shared.gists else { return }
-            if completion {
-                self.loaderView?.stop()
-                self.loaderView?.isHidden = true
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                if completion {
+                    self.stopLoader()
+                    
+                    guard let gists = Network.shared.gists else { return }
                     let gistsListVC = GistListViewController(gists: gists)
                     self.navigationController?.pushViewController(gistsListVC, animated: true)
                     
                 }
-            } else {
-                self.loaderView?.stop()
-                self.loaderView?.isHidden = true
-                print("Sorry response is nil")
+                else {
+                    self.stopLoader()
+                    self.showAlert(with: "Sorry, response is nil")
+                }
             }
-            
         }
-        
-        
-        
-        
     }
+    
+ 
 }
 
