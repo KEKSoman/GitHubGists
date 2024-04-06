@@ -9,14 +9,11 @@ import UIKit
 import SnapKit
 import Lottie
 
-class StartViewController: UIViewController {
+final class StartViewController: UIViewController {
     
-    let topLabel =  UILabel()
+    
     let usernameField = UITextField()
-    let passwordField = UITextField()
     let button = CustomButton()
-    let vStack = UIStackView()
-    let backView = UIView(frame: .zero)
     var loaderView: LottieAnimationView?
     let alertView = CustomAlert()
     
@@ -24,90 +21,62 @@ class StartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        view.addSubview(backView)
-        backView.addSubview(vStack)
         
-        addingLayers()
+        view.addSubview(usernameField)
+        view.addSubview(button)
+        
+        setConstratints()
         setUI()
-        navigationItem.title = "Start VC"
+        navigationItem.title = "Find GitHub gists by Username"
         view.addSubview(alertView)
     }
     
     override func viewWillLayoutSubviews() {
         view.setGradient(color1: "#bf6ddb", color2: "182172")
-        [usernameField, passwordField, button].forEach { item in
+        [usernameField, button].forEach { item in
             item.layer.cornerRadius = 20
         }
         alertView.backView.addBorderGradient(color1: "25CED1", color2: "41A6FF")
         alertView.button.addBorderGradient(color1: "25CED1", color2: "41A6FF")
     }
     
-    
-    func addingLayers() {
-        
-        backView.snp.makeConstraints { make in
-            make.centerY.equalTo(self.view)
-            make.height.equalTo(self.view).dividedBy(2)
-            make.horizontalEdges.equalTo(self.view).inset(20)
+    private func setConstratints() {
+        usernameField.snp.makeConstraints { make in
+            make.left.right.equalTo(view).inset(20)
+            make.height.equalTo(50)
+            make.centerY.equalTo(view.snp.centerY)
         }
         
-        vStack.snp.makeConstraints { make in
-            make.edges.equalTo(backView)
+        button.snp.makeConstraints { make in
+            make.left.right.equalTo(view).inset(20)
+            make.top.equalTo(usernameField.snp.bottom).offset(20)
+            make.height.equalTo(50)
         }
-        
-        [topLabel, usernameField, passwordField, button].forEach { item in
-            item.translatesAutoresizingMaskIntoConstraints = false
-            vStack.addArrangedSubview(item)
-        }
-        
-        
-        
     }
     
     private func setUI() {
-        backView.backgroundColor = .clear
-        
-        vStack.backgroundColor = .clear
-        vStack.axis = .vertical
-        vStack.translatesAutoresizingMaskIntoConstraints = false
-        vStack.clipsToBounds = true
-        vStack.contentMode = .scaleToFill
-        vStack.distribution = .fillEqually
-        vStack.spacing = 20
-        
-        
-        topLabel.backgroundColor = .cyan
-        topLabel.text = "Fing GitHub Gists"
-        topLabel.textAlignment = .center
-        
         usernameField.backgroundColor = .white
         usernameField.alpha = 0.7
-        // usernameField.placeholder = "Enter GitHub Username"
+        //        usernameField.placeholder = "Enter GitHub Username"
+        usernameField.text = "tdsemina"
         usernameField.textAlignment = .center
-        usernameField.text = "Jrterhgwefwdasgdshfjg"
-        
-        passwordField.backgroundColor = .clear
-        passwordField.placeholder = "Function unaviable"
-        passwordField.isEnabled = false
-        
-        
         
         button.text = "Search GitHub Gists"
-        button.font = .systemFont(ofSize: 36)
+        button.font = .systemFont(ofSize: 24)
         button.button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
-        
         
         loaderView = .init(name: "loader")
         loaderView?.contentMode = .scaleAspectFit
         loaderView?.loopMode = .loop
         loaderView?.isHidden = true
+        
         view.addSubview(loaderView!)
         loaderView?.snp.makeConstraints { make in
             make.height.width.equalTo(150)
             make.centerY.equalTo(view.snp.centerY)
             make.centerX.equalTo(view.snp.centerX)
         }
+        
         
         alertView.frame = view.frame
         alertView.isHidden = true
@@ -140,22 +109,26 @@ class StartViewController: UIViewController {
         Network.shared.loadGists(username: usernameField.text ?? "") { completion in
             
             DispatchQueue.main.async {
-                if completion {
+                
+                switch completion {
+                case 2:
                     self.stopLoader()
                     
                     guard let gists = Network.shared.gists else { return }
                     let gistsListVC = GistListViewController(gists: gists)
                     self.navigationController?.pushViewController(gistsListVC, animated: true)
-                    
-                }
-                else {
+                case 1:
                     self.stopLoader()
-                    self.showAlert(with: "Sorry, response is nil")
+                    self.showAlert(with: "Cant find gists of this GitHub user")
+                    self.usernameField.text = ""
+                    
+                default:
+                    self.stopLoader()
+                    self.showAlert(with: "Cant find this GitHub user")
+                    self.usernameField.text = ""
                 }
             }
         }
     }
-    
- 
 }
 

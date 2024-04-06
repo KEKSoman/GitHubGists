@@ -10,13 +10,14 @@ import SnapKit
 import UIKit
 
 
-class GistListViewController: UIViewController {
+final class GistListViewController: UIViewController {
     
     let tableView = UITableView()
     let ownerImage = UIImageView()
     let ownerLabel = UILabel()
     let backView = UIView()
     var gists: [Gists]?
+    let alert = CustomAlert()
     
     init(gists: [Gists]?) {
         self.gists = gists
@@ -32,6 +33,7 @@ class GistListViewController: UIViewController {
         
         view.addSubview(backView)
         view.addSubview(tableView)
+        view.addSubview(alert)
         
         backView.addSubview(ownerImage)
         backView.addSubview(ownerLabel)
@@ -42,7 +44,8 @@ class GistListViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        view.setGradient(color1: "D44343", color2: "000000")
+        view.setGradient(color1: "9E70AD", color2: "182172")
+        ownerImage.layer.cornerRadius = ownerImage.frame.height / 2
     }
     
     
@@ -82,11 +85,11 @@ class GistListViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorColor = .clear
         
-        
-        ownerLabel.text = "Owner name"
-        ownerImage.image = UIImage(named: "owner")
+        ownerImage.image = Network.shared.avatarImage
         guard let gistsInfo = gists else { return }
         ownerLabel.text = gistsInfo[0].owner.login
+        ownerLabel.textColor = .white.withAlphaComponent(0.7)
+        ownerLabel.font = .systemFont(ofSize: 18)
     }
 }
 

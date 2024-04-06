@@ -32,7 +32,6 @@ class CustomAlert: UIView {
     
     override func layoutSubviews() {
         backView.layoutIfNeeded()
-//        backView.addBorderGradient(color1: "25CED1", color2: "41A6FF")
     }
     
     private func setConstraints() {
@@ -51,7 +50,6 @@ class CustomAlert: UIView {
         
         label.snp.makeConstraints { make in
             make.top.left.right.equalTo(backView).inset(20)
-            //            make.bottom.equalTo(button.snp.top).offset(20)
         }
         
         button.snp.makeConstraints { make in
@@ -64,8 +62,6 @@ class CustomAlert: UIView {
     private func setUI() {
         bgView.backgroundColor = .black.withAlphaComponent(0.4)
         backView.backgroundColor = .black.withAlphaComponent(0.9)
-//        button.backgroundColor = .clear
-//        label.backgroundColor = .clear
         label.lineBreakMode = .byWordWrapping
         label.textColor = .white
         label.font = .systemFont(ofSize: 14)

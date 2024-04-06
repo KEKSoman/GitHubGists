@@ -30,10 +30,12 @@ class GistViewControllerTableCell: UITableViewCell {
         }
         
         self.selectionStyle = .none
-        gistTitle.text = "Test Gist Title"
         gistTitle.font = .systemFont(ofSize: 20)
+        gistTitle.textColor = .white.withAlphaComponent(0.7)
+        gistTitle.numberOfLines = 0
+        gistTitle.lineBreakMode = .byWordWrapping
         self.backgroundColor = .clear
-        backView.backgroundColor = .green
+        backView.backgroundColor = .black.withAlphaComponent(0.2)
     }
     
     required init?(coder: NSCoder) {
@@ -42,8 +44,7 @@ class GistViewControllerTableCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        backView.layer.borderColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.5).cgColor
+        backView.addBorderGradient(color1: "25CED1", color2: "41A6FF")
         backView.layer.cornerRadius = 10
     }
 }
