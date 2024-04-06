@@ -57,8 +57,7 @@ final class StartViewController: UIViewController {
     private func setUI() {
         usernameField.backgroundColor = .white
         usernameField.alpha = 0.7
-        //        usernameField.placeholder = "Enter GitHub Username"
-        usernameField.text = "tdsemina"
+        usernameField.placeholder = "Enter GitHub Username"
         usernameField.textAlignment = .center
         
         button.text = "Search GitHub Gists"
