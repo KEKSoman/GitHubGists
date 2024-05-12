@@ -43,10 +43,11 @@ class Network {
     func getOwnerAvatar(gist: [Gists]?) {
         
         let avatarUrl =  URL(string: gist?[0].owner.avatar_url ?? "")
-        
         let data = try? Data(contentsOf: avatarUrl!)
         guard let data = data else { return }
         avatarImage = UIImage(data: data)
+        NotificationCenter.default.post(name: NSNotification.Name("avatar"), object: nil, userInfo: nil)
+       
     }
     
 }

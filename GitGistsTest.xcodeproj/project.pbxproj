@@ -27,6 +27,7 @@
 		3F32780C2BB970B5002946B3 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 3F32780B2BB970B4002946B3 /* loader.json */; };
 		3F32780F2BB97120002946B3 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3F32780E2BB97120002946B3 /* Lottie */; };
 		3F3278112BBEDE8B002946B3 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3278102BBEDE8A002946B3 /* ErrorAlert.swift */; };
+		3F3278152BC18143002946B3 /* FixList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3278142BC18143002946B3 /* FixList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		3F3278092BB95D12002946B3 /* GistsDetailNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistsDetailNetwork.swift; sourceTree = "<group>"; };
 		3F32780B2BB970B4002946B3 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
 		3F3278102BBEDE8A002946B3 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		3F3278142BC18143002946B3 /* FixList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				3F32780B2BB970B4002946B3 /* loader.json */,
 				3F2144A82BB5BCE3003A6F85 /* LaunchScreen.storyboard */,
 				3F2144AB2BB5BCE3003A6F85 /* Info.plist */,
+				3F3278142BC18143002946B3 /* FixList.swift */,
 			);
 			path = GitGistsTest;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				3F2144B82BB5C4E9003A6F85 /* CustomButton.swift in Sources */,
 				3F2144C22BB81CCC003A6F85 /* Network.swift in Sources */,
 				3F3278012BB94C29002946B3 /* NavigationController.swift in Sources */,
+				3F3278152BC18143002946B3 /* FixList.swift in Sources */,
 				3F2144C62BB83A79003A6F85 /* GistVCTableCell.swift in Sources */,
 				3F2144BC2BB810B6003A6F85 /* SetGradient.swift in Sources */,
 				3F3278112BBEDE8B002946B3 /* ErrorAlert.swift in Sources */,

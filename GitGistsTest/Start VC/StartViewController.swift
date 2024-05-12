@@ -57,7 +57,8 @@ final class StartViewController: UIViewController {
     private func setUI() {
         usernameField.backgroundColor = .white
         usernameField.alpha = 0.7
-        usernameField.placeholder = "Enter GitHub Username"
+//        usernameField.placeholder = "Enter GitHub Username"
+        usernameField.text = "KEKSoman"
         usernameField.textAlignment = .center
         
         button.text = "Search GitHub Gists"
@@ -114,7 +115,7 @@ final class StartViewController: UIViewController {
                     self.stopLoader()
                     
                     guard let gists = Network.shared.gists else { return }
-                    let gistsListVC = GistListViewController(gists: gists)
+                    let gistsListVC = GistListViewController(gists: gists, title: self.usernameField.text)
                     self.navigationController?.pushViewController(gistsListVC, animated: true)
                 case 1:
                     self.stopLoader()

@@ -15,7 +15,7 @@ var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let navController = NavigationViewController()
-        navController.viewControllers = [GistListViewController(gists: nil), GistDetailViewController()]
+        navController.viewControllers = [GistListViewController(), GistDetailViewController()]
         
        window =  UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = NavigationViewController(rootViewController: StartViewController())

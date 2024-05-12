@@ -19,7 +19,7 @@ struct Gists: Codable {
         case url
         case created_at
         case updated_at
-        case owner
+        case owner = "owner"
         case description
     }
 }

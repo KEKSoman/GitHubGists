@@ -14,13 +14,14 @@ final class GistListViewController: UIViewController {
     
     let tableView = UITableView()
     let ownerImage = UIImageView()
-    let ownerLabel = UILabel()
     let backView = UIView()
     var gists: [Gists]?
     let alert = CustomAlert()
+    var navigationTitle: String?
     
-    init(gists: [Gists]?) {
+    init(gists: [Gists]? = nil, title: String? = "") {
         self.gists = gists
+        self.navigationTitle = title
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,16 +37,16 @@ final class GistListViewController: UIViewController {
         view.addSubview(alert)
         
         backView.addSubview(ownerImage)
-        backView.addSubview(ownerLabel)
-        
+        navigationItem.title = navigationTitle
         setConstraints()
         setUI()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateAvatar), name: NSNotification.Name("avatar"), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         view.setGradient(color1: "9E70AD", color2: "182172")
-        ownerImage.layer.cornerRadius = ownerImage.frame.height / 2
     }
     
     
@@ -57,14 +58,9 @@ final class GistListViewController: UIViewController {
         }
         
         ownerImage.snp.makeConstraints { make in
-            make.top.left.bottom.equalTo(backView).inset(10)
+            make.top.bottom.equalTo(backView).inset(10)
+            make.centerX.equalTo(backView.snp.centerX)
             make.width.equalTo(ownerImage.snp.height)
-        }
-        
-        ownerLabel.snp.makeConstraints { make in
-            make.left.equalTo(ownerImage.snp.right).offset(10)
-            make.centerY.equalTo(backView.snp.centerY)
-            make.rightMargin.greaterThanOrEqualTo(backView).inset(10)
         }
 
         tableView.snp.makeConstraints { make in
@@ -85,11 +81,15 @@ final class GistListViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorColor = .clear
         
-        ownerImage.image = Network.shared.avatarImage
-        guard let gistsInfo = gists else { return }
-        ownerLabel.text = gistsInfo[0].owner.login
-        ownerLabel.textColor = .white.withAlphaComponent(0.7)
-        ownerLabel.font = .systemFont(ofSize: 18)
+        alert.isHidden = true
+        ownerImage.image = UIImage(named: "defaultAvatar")
+    }
+    
+    @objc private func updateAvatar() {
+        DispatchQueue.main.async {
+            self.ownerImage.image = Network.shared.avatarImage
+        }
+        
     }
 }
 
@@ -115,7 +115,7 @@ extension GistListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let gists = gists?[indexPath.row] else { return }
-        let gistDetailVC = GistDetailViewController()
+        let gistDetailVC = GistDetailViewController(title: gists.description)
         
         GistDetailNetwork.shared.getGistDetailInformation(gistUrl: gists.url) { completion in
             if completion {
